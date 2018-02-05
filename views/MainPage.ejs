@@ -29,9 +29,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="#">List tasks</a></li>
                 <li><a href="#">Performance</a></li>
-                <li><a href="#">Settings</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#myModal">Settings</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hello, Thuy<b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -82,6 +81,49 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <form action="#" method="">
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title"><b>Options</b></h2>
+                </div>
+                <div class="modal-body">
+                    <h4>Select sound</h4>
+                        <select class="form-control" id="ring">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    <h4>Select volume <span class="glyphicon glyphicon-volume-up"></span></h4>
+                    <div class="text-center">
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio">25%
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio">50%
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio">75%
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio">100%
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer text-right">
+                    <button class="btn btn-success" id="SaveSettings" type="submit" value="SaveSettings">Save</button>
+                    <button class="btn btn-default" id="ResetSettings" type="submit" value="ResetSettings">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
 </div>
 </body>
 </html>
