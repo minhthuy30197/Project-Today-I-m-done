@@ -1,0 +1,13 @@
+* {
+
+}
+body {
+    background-image: url("../images/bg.png");
+    color: black;
+}
+
+#slogan {
+    font-style: bold;
+    font-size: 20px;
+    font-family: sans-serif;
+}
