@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<nav class="navbar navbar-default" role="navigation" style="opacity: 0.8;">
+<nav class="navbar navbar-default" role="navigation" style="opacity: ">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -23,18 +23,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-check"></span> Today I'm done</a>
+            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-check gi-2x"></span> <span class="text30">Today I'm done</span></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Performance</a></li>
-                <li><a href="#" data-toggle="modal" data-target="#myModal">Settings</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#modalSettings"><span class="glyphicon glyphicon-cog gi-2x"></span></a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hello, Thuy<b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="text20"></span><b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Change profile</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#modalProfile"><span class="glyphicon glyphicon-pencil"></span> Change profile</a></li>
                         <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
                     </ul>
                 </li>
@@ -46,45 +45,52 @@
 <br>
 <div class="container">
     <div class="row">
+        <div class="col-md-6 col-md-push-3 col-xs-8 col-xs-push-2">
+            <form method="" action="#">
+                <div class="clocktime">
+                    <div class="clock">
+                        <img src="assests/images/Tomato1.png" alt="" class = "img-responsive">
+                        <div class = "time">25:00</div>
+                    </div>
+                    <br>
+                    <div class="btngrp text-center">
+                        <button class="btn btn-success radius" id="timer_start" type="submit" value="Start">Start</button>
+                        <button class="btn btn-warning radius" id="timer_stop" type="submit" value="Stop">Stop</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
         <div class="tasks">
-            <div class="col-lg-8">
-                <div class="well" style="opacity: 0.8">
+            <div class="col-lg-8 col-lg-push-2">
+                <div class="well">
                     <div id="slogan"><span class="glyphicon glyphicon-th-list"></span> Make my day</div>
                     <br>
-                    <div class="thumbnail">
+                    <div class="thumbnail  pad10">
                         <p>Do 5 homeworks</p>
+                        <form method="" action="#">
                         <div class="text-right">
-                            <span class="glyphicon glyphicon-ok"></span>&emsp;
-                            <span class="glyphicon glyphicon-pencil"> </span>&emsp;
-                            <span class="glyphicon glyphicon-trash"> </span>
+                            <button class="btn glyphicon glyphicon-ok" id="done" type="submit" value="done"></button>
+                            <button class="btn glyphicon glyphicon-time" id="pomo" type="submit" value="pomo"></button>
+                            <button class="btn glyphicon glyphicon-pencil" id="fix" type="submit" value="fix"></button>
+                            <button class="btn glyphicon glyphicon-trash" id="delete" type="submit" value="delete"></button>
                         </div>
+                        </form>
                     </div>
-                    <form class="form-inline" action="#">
-                        <input type="text" class="form-control" id="newtask" placeholder="Add a task..." required="">
-                        <button class="btn btn-default" type="submit" id="addnew">Add</button>
-                    </form>
+                        <form method="" action="#">
+                            <input type="text" class="form-control" id="newtask" placeholder="Input new task here, and press ENTER to add..." required="">
+                        </form>
                 </div>
-            </div>
-        </div>
-        <div class="clocktime">
-            <div class="col-lg-4 text-center ">
-                <div class="btn-group">
-                    <button class="btn btn-primary active" id="pomodoro" type="submit" value="Pomodoro">Pomodoro</button>
-                    <button class="btn btn-primary" id="short_break" type="submit" value="Short_break">Short break</button>
-                    <button class="btn btn-primary" id="long_break" type="submit" value="Long_break">Long break</button>
-                </div>
-                <h1 id="timer-default">25:00</h1>
-                <br>
-                <button class="btn btn-success radius" id="timer_start" type="submit" value="Start">Start</button>
-                <button class="btn btn-danger radius" id="timer_stop" type="submit" value="Stop">Stop</button>
-                <button class="btn btn-default radius" id="timer_reset" type="submit" value="Reset">Reset</button>
             </div>
         </div>
     </div>
 
     <!-- Modal -->
     <form action="#" method="">
-    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal fade" id="modalSettings" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -123,6 +129,51 @@
             </div>
         </div>
     </div>
+    </form>
+
+    <form action="#" method="">
+        <div class="modal fade" id="modalProfile" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h2 class="modal-title"><b>Profile</b></h2>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">Full Name</span>
+                            <input id="fullName" type="text" class="form-control" name="fullName" placeholder="Your full name">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">Email</span>
+                            <input id="email" type="password" class="form-control" name="email" placeholder="Your email">
+                        </div>
+                        <br>
+                        <b>Change your password</b>
+                        <div class="input-group">
+                            <span class="input-group-addon">Your old password</span>
+                            <input id="oldPassword" type="password" class="form-control" name="oldPassword" placeholder="">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">Your new password</span>
+                            <input id="newPassword" type="text" class="form-control" name="newPassword" placeholder="">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">Retype new password</span>
+                            <input id="retypePassword" type="password" class="form-control" name="retypePassword" placeholder="">
+                        </div>
+                    </div>
+                    <div class="modal-footer text-right">
+                        <button class="btn btn-success" id="SaveSettings" type="submit" value="SaveSettings">Save</button>
+                        <button class="btn btn-default" id="ResetSettings" type="submit" value="ResetSettings">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
 </body>
