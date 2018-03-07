@@ -8,7 +8,7 @@ app.set('view engine','ejs')
 
 app.get('/',function (req,res) {
   let view = 'MainPage'
-  let tasks = getTasksFromDatabase();
+  let tasks = getTasksFromDatabase()
   let params = {
     tasks: tasks
   }
@@ -20,16 +20,16 @@ app.listen(8000, function () {
 })
 
 let Task = function(name) {
-  let _name = name;
+  let _name = name
 
   this.getName = function () {
-    return _name;
+    return _name
   }
 
   this.setName = function (name) {
-    _name = name;
+    _name = name
   }
-};
+}
 
 function getTasksFromDatabase () {
   let task01 = new Task("do 5 homework")
@@ -38,6 +38,6 @@ function getTasksFromDatabase () {
   task01.getName()
   task01.setName("fix issue #6")
 
-  return [task01, task03];
+  return [task01, task03]
 }
 
