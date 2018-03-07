@@ -1,4 +1,4 @@
-exports.Task = function() {
+let Task = function(name) {
   let _name = name;
 
   this.getName = function () {
@@ -9,3 +9,5 @@ exports.Task = function() {
     _name = name;
   }
 };
+
+module.exports = Task
