@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<nav class="navbar navbar-default" role="navigation" style="opacity: ">
+<nav class="navbar navbar-default" role="navigation" style="opacity:0.8 ">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -54,8 +54,8 @@
                     </div>
                     <br>
                     <div class="btngrp text-center">
-                        <button class="btn btn-success radius" id="timer_start" type="submit" value="Start">Start</button>
-                        <button class="btn btn-warning radius" id="timer_stop" type="submit" value="Stop">Stop</button>
+                        <button class="btn btn-success radius btn-lg" id="timer_start" type="submit" value="Start">Start</button>
+                        <button class="btn btn-warning radius btn-lg" id="timer_stop" type="submit" value="Stop">Stop</button>
                     </div>
                 </div>
             </form>
@@ -69,20 +69,22 @@
                 <div class="well">
                     <div id="slogan"><span class="glyphicon glyphicon-th-list"></span> Make my day</div>
                     <br>
-                    <div class="thumbnail  pad10">
-                        <p>Do 5 homeworks</p>
-                        <form method="" action="#">
-                        <div class="text-right">
-                            <button class="btn glyphicon glyphicon-ok" id="done" type="submit" value="done"></button>
-                            <button class="btn glyphicon glyphicon-time" id="pomo" type="submit" value="pomo"></button>
-                            <button class="btn glyphicon glyphicon-pencil" id="fix" type="submit" value="fix"></button>
-                            <button class="btn glyphicon glyphicon-trash" id="delete" type="submit" value="delete"></button>
+                    <% tasks.forEach(function(task) { %>
+                        <div class="thumbnail  pad10">
+                            <p><%= task.getName()%></p>
+                            <form method="" action="#">
+                                <div class="text-right">
+                                    <button class="btn glyphicon glyphicon-ok" id="done" type="submit" value="done"></button>
+                                    <button class="btn glyphicon glyphicon-time" id="pomo" type="submit" value="pomo"></button>
+                                    <button class="btn glyphicon glyphicon-pencil" id="fix" type="submit" value="fix"></button>
+                                    <button class="btn glyphicon glyphicon-trash" id="delete" type="submit" value="delete"></button>
+                                </div>
+                            </form>
                         </div>
-                        </form>
-                    </div>
-                        <form method="" action="#">
-                            <input type="text" class="form-control" id="newtask" placeholder="Input new task here, and press ENTER to add..." required="">
-                        </form>
+                    <%}); %>
+                    <form method="" action="#">
+                        <input type="text" class="form-control" id="newtask" placeholder="Input new task here, and press ENTER to add..." required="">
+                    </form>
                 </div>
             </div>
         </div>
