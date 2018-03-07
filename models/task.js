@@ -1,4 +1,4 @@
-function Task (name) {
+exports.Task = function() {
   let _name = name;
 
   this.getName = function () {
@@ -8,4 +8,4 @@ function Task (name) {
   this.setName = function (name) {
     _name = name;
   }
-}
+};

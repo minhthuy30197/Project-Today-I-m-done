@@ -19,6 +19,18 @@ app.listen(8000, function () {
   console.log('Server running at http://localhost:8000')
 })
 
+let Task = function(name) {
+  let _name = name;
+
+  this.getName = function () {
+    return _name;
+  }
+
+  this.setName = function (name) {
+    _name = name;
+  }
+};
+
 function getTasksFromDatabase () {
   let task01 = new Task("do 5 homework")
   let task03 = new Task("implement feature #5")
@@ -28,3 +40,4 @@ function getTasksFromDatabase () {
 
   return [task01, task03];
 }
+
