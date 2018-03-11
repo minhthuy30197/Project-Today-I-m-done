@@ -11,6 +11,11 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .bg-blue {
+            background-color: #9fcdff;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation" style="opacity:0.8 ">
@@ -69,21 +74,33 @@
                 <div class="well">
                     <div id="slogan"><span class="glyphicon glyphicon-th-list"></span> Make my day</div>
                     <br>
-                    <% tasks.forEach(function(task) { %>
-                        <div class="thumbnail  pad10">
-                            <p><%= task.getName()%></p>
-                            <form method="" action="#">
+                    <% tasks.forEach(function(task) {
+                        if (task.getDone() == false) { %>
+                            <div class="thumbnail  pad10">
+                                <p><%= task.getName()%></p>
                                 <div class="text-right">
-                                    <button class="btn glyphicon glyphicon-ok" id="done" type="submit" value="done"></button>
-                                    <button class="btn glyphicon glyphicon-time" id="pomo" type="submit" value="pomo"></button>
-                                    <button class="btn glyphicon glyphicon-pencil" id="fix" type="submit" value="fix"></button>
-                                    <button class="btn glyphicon glyphicon-trash" id="delete" type="submit" value="delete"></button>
+                                    <a href="/done?id=<%= task.getID()%>"><button class="btn glyphicon glyphicon-ok" id="done"></button></a>
+                                    <a href="/pomo?id=<%= task.getID()%>"><button class="btn glyphicon glyphicon-time" id="pomo"></button></a>
+                                    <a href="/fix?id=<%= task.getID()%>"><button class="btn glyphicon glyphicon-pencil" id="fix"></button></a>
+                                    <a href="/delete?id=<%= task.getID()%>"><button class="btn glyphicon glyphicon-trash" id="delete"></button></a>
                                 </div>
-                            </form>
+                            </div>
+                        <%}
+                        else { %>
+                            <div class="thumbnail  pad10 bg-blue">
+                                <p><%= task.getName()%></p>
+                                <div class="text-right">
+                                    <a href="/reset?id=<%= task.getID()%>"><button class="btn glyphicon glyphicon-refresh" id="reset"></button></a>
+                                    <a href="/delete?id=<%= task.getID()%>"><button class="btn glyphicon glyphicon-trash" id="delete"></button></a>
+                                </div>
+                            </div>
+                        <%}
+                    }); %>
+                    <form method="POST" action="/insert" class="form-inline">
+                        <div class="form-group">
+                            <input type="text" name="newtask" placeholder="Input new task here..." required="" class="form-control">
+                            <button type="submit" class="btn btn-success" id="addTask" name="addTask">Add</button>
                         </div>
-                    <%}); %>
-                    <form method="" action="#">
-                        <input type="text" class="form-control" id="newtask" placeholder="Input new task here, and press ENTER to add..." required="">
                     </form>
                 </div>
             </div>
