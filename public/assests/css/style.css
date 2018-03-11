@@ -2,8 +2,11 @@
 
 }
 body {
-    background-image: url("../images/bg.png");
+    background-image: url("../images/bg1.jpg");
     color: black;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #slogan {
@@ -51,4 +54,5 @@ hr {
 .clock {
     position: relative;
 }
+
 
