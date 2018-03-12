@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 let express = require('express')
 let Task = require('./models/task')
 var bodyParser = require('body-parser')
@@ -8,6 +10,8 @@ let app = new express()
 app.use(express.static(__dirname+'/public'))
 
 app.set('view engine','ejs')
+
+const port = process.env.WEB_PORT
 
 let tasks = getTasksFromDatabase()
 
@@ -57,8 +61,8 @@ app.get('/',function (req,res) {
   res.status(200).render(view, params)
 })
 
-app.listen(8000, function () {
-  console.log('Server running at http://localhost:8000')
+app.listen(app.get('port'), function () {
+  console.log(`Server running at http://localhost:${port}`)
 })
 
 function getTasksFromDatabase () {
