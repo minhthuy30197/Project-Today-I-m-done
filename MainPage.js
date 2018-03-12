@@ -10,8 +10,7 @@ let app = new express()
 app.use(express.static(__dirname+'/public'))
 
 app.set('view engine','ejs')
-
-const port = process.env.WEB_PORT
+app.set('port', process.env.WEB_PORT)
 
 let tasks = getTasksFromDatabase()
 
@@ -62,7 +61,7 @@ app.get('/',function (req,res) {
 })
 
 app.listen(app.get('port'), function () {
-  console.log(`Server running at http://localhost:${port}`)
+  console.log('Server running at http://localhost:' + app.get('port'))
 })
 
 function getTasksFromDatabase () {
