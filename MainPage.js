@@ -3,10 +3,14 @@ require('dotenv').config()
 let express = require('express')
 let Task = require('./models/task')
 var bodyParser = require('body-parser')
-var urlencodedParser = bodyParser.urlencoded({ extended: false})
+//var urlencodedParser = bodyParser.urlencoded({ extended: false})
 
 let app = new express()
-
+//app.use(bodyParser.json())
+var json_body_parser = bodyParser.json();
+var urlencoded_body_parser = bodyParser.urlencoded({ extended: true });
+app.use(json_body_parser);
+app.use(urlencoded_body_parser);
 app.use(express.static(__dirname+'/public'))
 
 app.set('view engine','ejs')
@@ -42,12 +46,14 @@ app.get('/reset',function (req,res) {
   let id = req.param('id')
   pos = findTask(id)
   tasks[pos].setDone(false)
+  console.log(tasks[pos])
   res.status(302).redirect('/')
 })
 
-app.post('/insert', urlencodedParser,function (req,res) {
+app.post('/insert', urlencoded_body_parser,function (req,res) {
   console.log(req.body.newtask)
-  let newtask = new Task(req.body.newtask, tasks[tasks.length - 1] + 1)
+  let newtask = new Task(req.body.newtask, tasks.length+1)
+  console.log(newtask.getID())
   tasks.push(newtask)
   res.status(302).redirect('/')
 })
@@ -60,8 +66,23 @@ app.get('/',function (req,res) {
   res.status(200).render(view, params)
 })
 
+app.get('/task',function (req,res) {
+  let id = req.param('id')
+  let task = tasks[findTask(id)]
+  var obj = { "name": task.getName(), "id": task.getID() }
+  res.status(200).send(JSON.stringify(obj))
+})
+
 app.listen(app.get('port'), function () {
   console.log('Server running at http://localhost:' + app.get('port'))
+})
+
+app.post('/changetask',function (req, res) {
+  let obj = req.body
+  console.log(obj['name'])
+  let task = tasks[findTask(obj['id'])]
+  task.setName(obj['name'])
+  res.status(200).send({result:"success"})
 })
 
 function getTasksFromDatabase () {

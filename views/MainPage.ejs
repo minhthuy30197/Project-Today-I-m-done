@@ -77,11 +77,11 @@
                     <% tasks.forEach(function(task) {
                         if (task.getDone() == false) { %>
                             <div class="thumbnail  pad10">
-                                <p><%= task.getName()%></p>
+                                <p id = "content<%= task.getID()%>"><%= task.getName()%></p>
                                 <div class="text-right">
                                     <a href="/done?id=<%= task.getID()%>"><button class="btn glyphicon glyphicon-ok" id="done"></button></a>
                                     <a href="/pomo?id=<%= task.getID()%>"><button class="btn glyphicon glyphicon-time" id="pomo"></button></a>
-                                    <a href="/fix?id=<%= task.getID()%>"><button class="btn glyphicon glyphicon-pencil" id="fix"></button></a>
+                                    <a><button class="btn glyphicon glyphicon-pencil" id="fixBtn" onclick="fixBtn(<%= task.getID()%>)"></button></a>
                                     <a href="/delete?id=<%= task.getID()%>"><button class="btn glyphicon glyphicon-trash" id="delete"></button></a>
                                 </div>
                             </div>
@@ -142,8 +142,8 @@
                     </div>
                 </div>
                 <div class="modal-footer text-right">
-                    <button class="btn btn-success" id="SaveSettings" type="submit" value="SaveSettings">Save</button>
-                    <button class="btn btn-default" id="ResetSettings" type="submit" value="ResetSettings">Reset</button>
+                    <button class="btn btn-success" id="SaveSettings" type="submit">Save</button>
+                    <button class="btn btn-default" id="ResetSettings" type="reset">Reset</button>
                 </div>
             </div>
         </div>
@@ -187,13 +187,67 @@
                         </div>
                     </div>
                     <div class="modal-footer text-right">
-                        <button class="btn btn-success" id="SaveSettings" type="submit" value="SaveSettings">Save</button>
-                        <button class="btn btn-default" id="ResetSettings" type="submit" value="ResetSettings">Reset</button>
+                        <button class="btn btn-success" id="SaveProfile" type="submit">Save</button>
+                        <button class="btn btn-default" id="ResetProfile" type="reset">Reset</button>
                     </div>
                 </div>
             </div>
         </div>
     </form>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title"><b>Change your task</b></h2>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <input type="text" hidden value="" id="task_id">
+                        <span class="input-group-addon">Your task</span>
+                        <input id="task_modal_name" type="text" class="form-control" name="Task" placeholder="">
+                    </div>
+                </div>
+                <div class="modal-footer text-right">
+                    <button class="btn btn-success" id="SaveTask" type="submit">Save your change</button>
+                    <button class="btn btn-default" id="ResetTask" type="reset">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
+
+<script>
+  function fixBtn (id) {
+    $.get('/task?id=' + id, (data, status) => {
+        let obj = JSON.parse(data);
+        $('#task_modal_name').val(obj.name)
+        $('#task_id').val(obj.id)
+        $('#myModal').modal()
+    })
+  }
+
+  $('#SaveTask').click(function () {
+    let id = parseInt($('#task_id').val())
+    let name = $('#task_modal_name').val()
+    var obj = { "name": name, "id": id }
+    console.log(JSON.stringify(obj))
+    $.ajax({
+      type: "POST",
+      url:   "/changetask",
+      data:  obj,
+      dataType: "json",
+      success: function(result) {
+        if (result['result'] == 'success')
+        {
+          console.log('success'+id)
+          $('#content'+id).text(name)
+          $('#myModal').modal('hide')
+        }
+      },
+    });
+  })
+</script>
