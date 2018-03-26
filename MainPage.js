@@ -92,6 +92,7 @@ function getTasksFromDatabase () {
   return [task01, task02, task03]
 }
 
+
 function findTask (id) {
   i = 0;
   while (i < tasks.length) {

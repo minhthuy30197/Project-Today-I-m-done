@@ -19,50 +19,55 @@
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation" style="opacity:0.8 ">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-check gi-2x"></span> <span class="text30">Today I'm done</span></a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" data-toggle="modal" data-target="#modalSettings"><span class="glyphicon glyphicon-cog gi-2x"></span></a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="text20"></span><b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" data-toggle="modal" data-target="#modalProfile"><span class="glyphicon glyphicon-pencil"></span> Change profile</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-check gi-2x"></span> <span class="text30">Today I'm done</span></a>
     </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" data-toggle="modal" data-target="#modalSettings"><span
+                            class="glyphicon glyphicon-cog gi-2x"></span></a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="text20"></span><b
+                            class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" data-toggle="modal" data-target="#modalProfile"><span
+                                    class="glyphicon glyphicon-pencil"></span> Change profile</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div><!-- /.navbar-collapse -->
 </nav>
 <br>
 <br>
-<div id="pomodoro-app">
-    <div class="btngrp text-center">
-        <div id="container">
-        <div id="timer">
-            <div id="time">
-                <span id="minutes">25</span>
-                <span id="colon">:</span>
-                <span id="seconds">00</span>
+<div class="container">
+    <div class="row text-center">
+        <div class="col-md-6 col-md-push-3 col-xs-8 col-xs-push-2">
+            <div class="clock">
+                <img src="assests/images/Tomato1.png" alt="" class="img-responsive">
+                <div class="time">
+                    <div id="timer">
+                        <span id="minutes">25</span>
+                        <span id="colon">:</span>
+                        <span id="seconds">00</span>
+                    </div>
+                    <div id="filler"></div>
+                </div>
             </div>
-            <div id="filler"></div>
-        </div>
-
-        <div id="buttons">
-            <button class="btn btn-success radius btn-lg" id="work">Work</button>
-            <button class="btn btn-warning radius btn-lg" id="stop">Stop</button>
+            <br>
+            <div id="buttons">
+                <button class="btn btn-success radius btn-lg" id="work">Work</button>
+                <button class="btn btn-warning radius btn-lg" id="restart">Restart</button>
+            </div>
         </div>
     </div>
     <br>
@@ -74,30 +79,44 @@
                     <div id="slogan"><span class="glyphicon glyphicon-th-list"></span> Make my day</div>
                     <br>
                     <% tasks.forEach(function(task) {
-                        if (task.getDone() == false) { %>
-                            <div class="thumbnail  pad10">
-                                <p id = "content<%= task.getID()%>"><%= task.getName()%></p>
-                                <div class="text-right">
-                                    <a href="/done?id=<%= task.getID()%>"><button class="btn glyphicon glyphicon-ok" id="done"></button></a>
-                                    <a href="/pomo?id=<%= task.getID()%>"><button class="btn glyphicon glyphicon-time" id="pomo"></button></a>
-                                    <a><button class="btn glyphicon glyphicon-pencil" id="fixBtn" onclick="fixBtn(<%= task.getID()%>)"></button></a>
-                                    <a href="/delete?id=<%= task.getID()%>"><button class="btn glyphicon glyphicon-trash" id="delete"></button></a>
-                                </div>
-                            </div>
-                        <%}
-                        else { %>
-                            <div class="thumbnail  pad10 bg-blue">
-                                <p><%= task.getName()%></p>
-                                <div class="text-right">
-                                    <a href="/reset?id=<%= task.getID()%>"><button class="btn glyphicon glyphicon-refresh" id="reset"></button></a>
-                                    <a href="/delete?id=<%= task.getID()%>"><button class="btn glyphicon glyphicon-trash" id="delete"></button></a>
-                                </div>
-                            </div>
-                        <%}
+                    if (task.getDone() == false) { %>
+                    <div class="thumbnail  pad10">
+                        <p id="content<%= task.getID() %>"><%= task.getName() %></p>
+                        <div class="text-right">
+                            <a href="/done?id=<%= task.getID() %>">
+                                <button class="btn glyphicon glyphicon-ok" id="done"></button>
+                            </a>
+                            <a>
+                                <button class="btn glyphicon glyphicon-time pomo"></button>
+                            </a>
+                            <a>
+                                <button class="btn glyphicon glyphicon-pencil" id="fixBtn"
+                                        onclick="fixBtn(<%= task.getID() %>)"></button>
+                            </a>
+                            <a href="/delete?id=<%= task.getID() %>">
+                                <button class="btn glyphicon glyphicon-trash" id="delete"></button>
+                            </a>
+                        </div>
+                    </div>
+                    <% }
+                    else { %>
+                    <div class="thumbnail  pad10 bg-blue">
+                        <p><%= task.getName() %></p>
+                        <div class="text-right">
+                            <a href="/reset?id=<%= task.getID() %>">
+                                <button class="btn glyphicon glyphicon-refresh" id="reset"></button>
+                            </a>
+                            <a href="/delete?id=<%= task.getID() %>">
+                                <button class="btn glyphicon glyphicon-trash" id="delete"></button>
+                            </a>
+                        </div>
+                    </div>
+                    <% }
                     }); %>
                     <form method="POST" action="/insert" class="form-inline">
                         <div class="form-group">
-                            <input type="text" name="newtask" placeholder="Input new task here..." required="" class="form-control">
+                            <input type="text" name="newtask" placeholder="Input new task here..." required=""
+                                   class="form-control">
                             <button type="submit" class="btn btn-success" id="addTask" name="addTask">Add</button>
                         </div>
                     </form>
@@ -106,47 +125,48 @@
         </div>
     </div>
 
+
     <!-- Modal -->
     <form action="#" method="">
-    <div class="modal fade" id="modalSettings" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title"><b>Options</b></h2>
-                </div>
-                <div class="modal-body">
-                    <h4>Select sound</h4>
+        <div class="modal fade" id="modalSettings" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h2 class="modal-title"><b>Options</b></h2>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Select sound</h4>
                         <select class="form-control" id="ring">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
                             <option>4</option>
                         </select>
-                    <h4>Select volume <span class="glyphicon glyphicon-volume-up"></span></h4>
-                    <div class="text-center">
-                        <label class="radio-inline">
-                            <input type="radio" name="optradio">25%
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="optradio">50%
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="optradio">75%
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="optradio">100%
-                        </label>
+                        <h4>Select volume <span class="glyphicon glyphicon-volume-up"></span></h4>
+                        <div class="text-center">
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio">25%
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio">50%
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio">75%
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio">100%
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer text-right">
-                    <button class="btn btn-success" id="SaveSettings" type="submit">Save</button>
-                    <button class="btn btn-default" id="ResetSettings" type="reset">Reset</button>
+                    <div class="modal-footer text-right">
+                        <button class="btn btn-success" id="SaveSettings" type="submit">Save</button>
+                        <button class="btn btn-default" id="ResetSettings" type="reset">Reset</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </form>
 
     <form action="#" method="">
@@ -161,28 +181,33 @@
                     <div class="modal-body">
                         <div class="input-group">
                             <span class="input-group-addon">Full Name</span>
-                            <input id="fullName" type="text" class="form-control" name="fullName" placeholder="Your full name">
+                            <input id="fullName" type="text" class="form-control" name="fullName"
+                                   placeholder="Your full name">
                         </div>
                         <br>
                         <div class="input-group">
                             <span class="input-group-addon">Email</span>
-                            <input id="email" type="password" class="form-control" name="email" placeholder="Your email">
+                            <input id="email" type="password" class="form-control" name="email"
+                                   placeholder="Your email">
                         </div>
                         <br>
                         <b>Change your password</b>
                         <div class="input-group">
                             <span class="input-group-addon">Your old password</span>
-                            <input id="oldPassword" type="password" class="form-control" name="oldPassword" placeholder="">
+                            <input id="oldPassword" type="password" class="form-control" name="oldPassword"
+                                   placeholder="">
                         </div>
                         <br>
                         <div class="input-group">
                             <span class="input-group-addon">Your new password</span>
-                            <input id="newPassword" type="text" class="form-control" name="newPassword" placeholder="">
+                            <input id="newPassword" type="text" class="form-control" name="newPassword"
+                                   placeholder="">
                         </div>
                         <br>
                         <div class="input-group">
                             <span class="input-group-addon">Retype new password</span>
-                            <input id="retypePassword" type="password" class="form-control" name="retypePassword" placeholder="">
+                            <input id="retypePassword" type="password" class="form-control" name="retypePassword"
+                                   placeholder="">
                         </div>
                     </div>
                     <div class="modal-footer text-right">
@@ -217,61 +242,62 @@
     </div>
 </div>
 </body>
+</html>
 <script>
   let pomodoro = {
-    minutes : 0,
-    seconds : 0,
-    fillerHeight : 0,
-    fillerIncrement : 0,
-    interval : null,
-    minutesDom : null,
-    secondsDom : null,
-    fillerDom : null,
-    init : function(){
+    minutes: 0,
+    seconds: 0,
+    fillerHeight: 0,
+    fillerIncrement: 0,
+    interval: null,
+    minutesDom: null,
+    secondsDom: null,
+    fillerDom: null,
+    init: function () {
       let self = this;
       this.minutesDom = document.querySelector('#minutes');
       this.secondsDom = document.querySelector('#seconds');
       this.fillerDom = document.querySelector('#filler');
-      this.interval = setInterval(function(){
+      this.interval = setInterval(function () {
         self.intervalCallback.apply(self);
       }, 1000);
-      document.querySelector('#work').onclick = function(){
+      document.querySelector('#work').onclick = function () {
         self.startWork.apply(self);
       };
-      document.querySelector('#stop').onclick = function(){
+      document.querySelector('#restart').onclick = function () {
         self.stopTimer.apply(self);
       };
     },
-    resetVariables : function(mins, secs, started){
+    resetVariables: function (mins, secs, started) {
       this.minutes = mins;
       this.seconds = secs;
       this.started = started;
-      this.fillerIncrement = 200/(this.minutes*60);
+      this.fillerIncrement = 200 / (this.minutes * 60);
       this.fillerHeight = 0;
     },
-    startWork: function() {
+    startWork: function () {
       this.resetVariables(25, 0, true);
     },
-    stopTimer : function(){
+    stopTimer: function () {
       this.resetVariables(25, 0, false);
       this.updateDom();
     },
-    toDoubleDigit : function(num){
-      if(num < 10) {
+    toDoubleDigit: function (num) {
+      if (num < 10) {
         return "0" + parseInt(num, 10);
       }
       return num;
     },
-    updateDom : function(){
+    updateDom: function () {
       this.minutesDom.innerHTML = this.toDoubleDigit(this.minutes);
       this.secondsDom.innerHTML = this.toDoubleDigit(this.seconds);
       this.fillerHeight = this.fillerHeight + this.fillerIncrement;
       this.fillerDom.style.height = this.fillerHeight + 'px';
     },
-    intervalCallback : function(){
-      if(!this.started) return false;
-      if(this.seconds == 0) {
-        if(this.minutes == 0) {
+    intervalCallback: function () {
+      if (!this.started) return false;
+      if (this.seconds == 0) {
+        if (this.minutes == 0) {
           this.timerComplete();
           return;
         }
@@ -282,43 +308,44 @@
       }
       this.updateDom();
     },
-    timerComplete : function(){
+    timerComplete: function () {
       this.started = false;
       this.fillerHeight = 0;
     }
   };
-  window.onload = function(){
+  window.onload = function () {
     pomodoro.init();
   };
-
+  $('.pomo').click(function () {
+    pomodoro.init();
+    pomodoro.startWork();
+  })
 </script>
-</html>
 
 <script>
   function fixBtn (id) {
     $.get('/task?id=' + id, (data, status) => {
-        let obj = JSON.parse(data);
-        $('#task_modal_name').val(obj.name)
-        $('#task_id').val(obj.id)
-        $('#myModal').modal()
+      let obj = JSON.parse(data);
+      $('#task_modal_name').val(obj.name)
+      $('#task_id').val(obj.id)
+      $('#myModal').modal()
     })
   }
 
   $('#SaveTask').click(function () {
     let id = parseInt($('#task_id').val())
     let name = $('#task_modal_name').val()
-    var obj = { "name": name, "id": id }
+    var obj = {"name": name, "id": id}
     console.log(JSON.stringify(obj))
     $.ajax({
       type: "POST",
-      url:   "/changetask",
-      data:  obj,
+      url: "/changetask",
+      data: obj,
       dataType: "json",
-      success: function(result) {
-        if (result['result'] == 'success')
-        {
-          console.log('success'+id)
-          $('#content'+id).text(name)
+      success: function (result) {
+        if (result['result'] == 'success') {
+          console.log('success' + id)
+          $('#content' + id).text(name)
           $('#myModal').modal('hide')
         }
       },
