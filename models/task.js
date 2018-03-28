@@ -25,3 +25,4 @@ let Task = function(name, id) {
 };
 
 module.exports = Task
+

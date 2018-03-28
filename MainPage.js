@@ -13,36 +13,36 @@ app.use(json_body_parser);
 app.use(urlencoded_body_parser);
 app.use(express.static(__dirname+'/public'))
 
-app.set('view engine','ejs')
+app.set('view engine', 'ejs')
 app.set('port', process.env.WEB_PORT)
 
 let tasks = getTasksFromDatabase()
 
-app.get('/delete',function (req,res) {
+app.get('/delete', function (req, res) {
   let id = req.param('id')
   pos = findTask(id)
   tasks.splice(pos, 1)
   res.status(302).redirect('/')
 })
 
-app.get('/done',function (req,res) {
+app.get('/done', function (req, res) {
   let id = req.param('id')
   pos = findTask(id)
   tasks[pos].setDone(true)
   res.status(302).redirect('/')
 })
 
-app.get('/pomo',function (req,res) {
+app.get('/pomo', function (req, res) {
   let id = req.param('id')
   res.status(200).send(id)
 })
 
-app.get('/fix',function (req,res) {
+app.get('/fix', function (req, res) {
   let id = req.param('id')
   res.status(200).send(id)
 })
 
-app.get('/reset',function (req,res) {
+app.get('/reset', function (req, res) {
   let id = req.param('id')
   pos = findTask(id)
   tasks[pos].setDone(false)
@@ -58,7 +58,7 @@ app.post('/insert', urlencoded_body_parser,function (req,res) {
   res.status(302).redirect('/')
 })
 
-app.get('/',function (req,res) {
+app.get('/', function (req, res) {
   let view = 'MainPage'
   let params = {
     tasks: tasks
@@ -86,20 +86,19 @@ app.post('/changetask',function (req, res) {
 })
 
 function getTasksFromDatabase () {
-  let task01 = new Task("commit my works", 1)
-  let task02 = new Task("fix #6", 2)
-  let task03 = new Task("implement feature #5", 3)
+  let task01 = new Task('commit my works', 1)
+  let task02 = new Task('fix #6', 2)
+  let task03 = new Task('implement feature #5', 3)
   return [task01, task02, task03]
 }
 
 
 function findTask (id) {
-  i = 0;
+  i = 0
   while (i < tasks.length) {
     if (tasks[i].getID() == id) {
       return i
     }
-    i++;
+    i++
   }
 }
-
