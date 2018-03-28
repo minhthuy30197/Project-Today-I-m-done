@@ -1,6 +1,7 @@
 * {
 
 }
+
 body {
     background-image: url("../images/bg1.jpg");
     color: black;
@@ -32,7 +33,9 @@ hr {
     margin: auto;
 }
 
-.gi-2x{font-size: 2em;}
+.gi-2x {
+    font-size: 2em;
+}
 
 .text30 {
     font-size: 30px;
@@ -47,7 +50,7 @@ hr {
     position: absolute;
     text-align: center;
     width: 100%;
-    font-size:8vw;
+    font-size: 8vw;
     left: 0;
 }
 

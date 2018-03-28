@@ -33,8 +33,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#" data-toggle="modal" data-target="#modalSettings"><span
-                            class="glyphicon glyphicon-cog gi-2x"></span></a></li>
+            <li><a href="#" data-toggle="modal" data-target="#modalSettings">
+                    <span class="glyphicon glyphicon-cog gi-2x"></span></a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="text20"></span><b
                             class="caret"></b></a>
@@ -78,48 +78,13 @@
                 <div class="well">
                     <div id="slogan"><span class="glyphicon glyphicon-th-list"></span> Make my day</div>
                     <br>
-                    <% tasks.forEach(function(task) {
-                    if (task.getDone() == false) { %>
-                    <div class="thumbnail  pad10">
-                        <p id="content<%= task.getID() %>"><%= task.getName() %></p>
-                        <div class="text-right">
-                            <a href="/done?id=<%= task.getID() %>">
-                                <button class="btn glyphicon glyphicon-ok" id="done"></button>
-                            </a>
-                            <a>
-                                <button class="btn glyphicon glyphicon-time pomo"></button>
-                            </a>
-                            <a>
-                                <button class="btn glyphicon glyphicon-pencil" id="fixBtn"
-                                        onclick="fixBtn(<%= task.getID() %>)"></button>
-                            </a>
-                            <a href="/delete?id=<%= task.getID() %>">
-                                <button class="btn glyphicon glyphicon-trash" id="delete"></button>
-                            </a>
-                        </div>
+                    <div id="task-list">
+
                     </div>
-                    <% }
-                    else { %>
-                    <div class="thumbnail  pad10 bg-blue">
-                        <p><%= task.getName() %></p>
-                        <div class="text-right">
-                            <a href="/reset?id=<%= task.getID() %>">
-                                <button class="btn glyphicon glyphicon-refresh" id="reset"></button>
-                            </a>
-                            <a href="/delete?id=<%= task.getID() %>">
-                                <button class="btn glyphicon glyphicon-trash" id="delete"></button>
-                            </a>
-                        </div>
+                    <div class="form-inline">
+                        <input type="text" id="newtask" placeholder="Input new task here..." class="form-control">
+                        <button class="btn btn-success" id="addTask">Add</button>
                     </div>
-                    <% }
-                    }); %>
-                    <form method="POST" action="/insert" class="form-inline">
-                        <div class="form-group">
-                            <input type="text" name="newtask" placeholder="Input new task here..." required=""
-                                   class="form-control">
-                            <button type="submit" class="btn btn-success" id="addTask" name="addTask">Add</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
@@ -127,98 +92,92 @@
 
 
     <!-- Modal -->
-    <form action="#" method="">
-        <div class="modal fade" id="modalSettings" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h2 class="modal-title"><b>Options</b></h2>
+    <div class="modal fade" id="modalSettings" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title"><b>Options</b></h2>
+                </div>
+                <div class="modal-body">
+                    <h4><label for="ring">Select sound</label></h4><select class="form-control" id="ring">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                    </select>
+                    <h4>Select volume <span class="glyphicon glyphicon-volume-up"></span></h4>
+                    <div class="text-center">
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio">25%
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio">50%
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio">75%
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio">100%
+                        </label>
                     </div>
-                    <div class="modal-body">
-                        <h4>Select sound</h4>
-                        <select class="form-control" id="ring">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                        <h4>Select volume <span class="glyphicon glyphicon-volume-up"></span></h4>
-                        <div class="text-center">
-                            <label class="radio-inline">
-                                <input type="radio" name="optradio">25%
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="optradio">50%
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="optradio">75%
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="optradio">100%
-                            </label>
-                        </div>
-                    </div>
-                    <div class="modal-footer text-right">
-                        <button class="btn btn-success" id="SaveSettings" type="submit">Save</button>
-                        <button class="btn btn-default" id="ResetSettings" type="reset">Reset</button>
-                    </div>
+                </div>
+                <div class="modal-footer text-right">
+                    <button class="btn btn-success" id="SaveSettings" type="submit">Save</button>
+                    <button class="btn btn-default" id="ResetSettings" type="reset">Reset</button>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
 
-    <form action="#" method="">
-        <div class="modal fade" id="modalProfile" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h2 class="modal-title"><b>Profile</b></h2>
+    <div class="modal fade" id="modalProfile" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title"><b>Profile</b></h2>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <span class="input-group-addon">Full Name</span>
+                        <input id="fullName" type="text" class="form-control" name="fullName"
+                               placeholder="Your full name">
                     </div>
-                    <div class="modal-body">
-                        <div class="input-group">
-                            <span class="input-group-addon">Full Name</span>
-                            <input id="fullName" type="text" class="form-control" name="fullName"
-                                   placeholder="Your full name">
-                        </div>
-                        <br>
-                        <div class="input-group">
-                            <span class="input-group-addon">Email</span>
-                            <input id="email" type="password" class="form-control" name="email"
-                                   placeholder="Your email">
-                        </div>
-                        <br>
-                        <b>Change your password</b>
-                        <div class="input-group">
-                            <span class="input-group-addon">Your old password</span>
-                            <input id="oldPassword" type="password" class="form-control" name="oldPassword"
-                                   placeholder="">
-                        </div>
-                        <br>
-                        <div class="input-group">
-                            <span class="input-group-addon">Your new password</span>
-                            <input id="newPassword" type="text" class="form-control" name="newPassword"
-                                   placeholder="">
-                        </div>
-                        <br>
-                        <div class="input-group">
-                            <span class="input-group-addon">Retype new password</span>
-                            <input id="retypePassword" type="password" class="form-control" name="retypePassword"
-                                   placeholder="">
-                        </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">Email</span>
+                        <input id="email" type="password" class="form-control" name="email"
+                               placeholder="Your email">
                     </div>
-                    <div class="modal-footer text-right">
-                        <button class="btn btn-success" id="SaveProfile" type="submit">Save</button>
-                        <button class="btn btn-default" id="ResetProfile" type="reset">Reset</button>
+                    <br>
+                    <b>Change your password</b>
+                    <div class="input-group">
+                        <span class="input-group-addon">Your old password</span>
+                        <input id="oldPassword" type="password" class="form-control" name="oldPassword"
+                               placeholder="">
                     </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">Your new password</span>
+                        <input id="newPassword" type="text" class="form-control" name="newPassword"
+                               placeholder="">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">Retype new password</span>
+                        <input id="retypePassword" type="password" class="form-control" name="retypePassword"
+                               placeholder="">
+                    </div>
+                </div>
+                <div class="modal-footer text-right">
+                    <button class="btn btn-success" id="SaveProfile" type="submit">Save</button>
+                    <button class="btn btn-default" id="ResetProfile" type="reset">Reset</button>
                 </div>
             </div>
         </div>
-    </form>
-
+    </div>
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -228,21 +187,22 @@
                 </div>
                 <div class="modal-body">
                     <div class="input-group">
-                        <input type="text" hidden value="" id="task_id">
+                        <label for="task_id"></label><input type="text" hidden value="" id="task_id">
                         <span class="input-group-addon">Your task</span>
                         <input id="task_modal_name" type="text" class="form-control" name="Task" placeholder="">
                     </div>
                 </div>
                 <div class="modal-footer text-right">
                     <button class="btn btn-success" id="SaveTask" type="submit">Save your change</button>
-                    <button class="btn btn-default" id="ResetTask" type="reset">Reset</button>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 </body>
 </html>
+
 <script>
   let pomodoro = {
     minutes: 0,
@@ -254,101 +214,207 @@
     secondsDom: null,
     fillerDom: null,
     init: function () {
-      let self = this;
-      this.minutesDom = document.querySelector('#minutes');
-      this.secondsDom = document.querySelector('#seconds');
-      this.fillerDom = document.querySelector('#filler');
+      let self = this
+      this.minutesDom = document.querySelector('#minutes')
+      this.secondsDom = document.querySelector('#seconds')
+      this.fillerDom = document.querySelector('#filler')
       this.interval = setInterval(function () {
-        self.intervalCallback.apply(self);
-      }, 1000);
+        self.intervalCallback.apply(self)
+      }, 1000)
       document.querySelector('#work').onclick = function () {
-        self.startWork.apply(self);
-      };
+        self.startWork.apply(self)
+      }
       document.querySelector('#restart').onclick = function () {
-        self.stopTimer.apply(self);
-      };
+        self.stopTimer.apply(self)
+      }
     },
     resetVariables: function (mins, secs, started) {
-      this.minutes = mins;
-      this.seconds = secs;
-      this.started = started;
-      this.fillerIncrement = 200 / (this.minutes * 60);
-      this.fillerHeight = 0;
+      this.minutes = mins
+      this.seconds = secs
+      this.started = started
+      this.fillerIncrement = 200 / (this.minutes * 60)
+      this.fillerHeight = 0
     },
     startWork: function () {
-      this.resetVariables(25, 0, true);
+      this.resetVariables(25, 0, true)
     },
     stopTimer: function () {
-      this.resetVariables(25, 0, false);
-      this.updateDom();
+      this.resetVariables(25, 0, false)
+      this.updateDom()
     },
     toDoubleDigit: function (num) {
       if (num < 10) {
-        return "0" + parseInt(num, 10);
+        return '0' + parseInt(num, 10)
       }
-      return num;
+      return num
     },
     updateDom: function () {
-      this.minutesDom.innerHTML = this.toDoubleDigit(this.minutes);
-      this.secondsDom.innerHTML = this.toDoubleDigit(this.seconds);
-      this.fillerHeight = this.fillerHeight + this.fillerIncrement;
-      this.fillerDom.style.height = this.fillerHeight + 'px';
+      this.minutesDom.innerHTML = this.toDoubleDigit(this.minutes)
+      this.secondsDom.innerHTML = this.toDoubleDigit(this.seconds)
+      this.fillerHeight = this.fillerHeight + this.fillerIncrement
+      this.fillerDom.style.height = this.fillerHeight + 'px'
     },
     intervalCallback: function () {
-      if (!this.started) return false;
-      if (this.seconds == 0) {
-        if (this.minutes == 0) {
-          this.timerComplete();
-          return;
+      if (!this.started) return false
+      if (this.seconds === 0) {
+        if (this.minutes === 0) {
+          this.timerComplete()
+          return
         }
-        this.seconds = 59;
-        this.minutes--;
+        this.seconds = 59
+        this.minutes--
       } else {
-        this.seconds--;
+        this.seconds--
       }
-      this.updateDom();
+      this.updateDom()
     },
     timerComplete: function () {
-      this.started = false;
-      this.fillerHeight = 0;
-    }
-  };
+      this.started = false
+      this.fillerHeight = 0
+    },
+  }
   window.onload = function () {
-    pomodoro.init();
-  };
-  $('.pomo').click(function () {
-    pomodoro.init();
-    pomodoro.startWork();
-  })
+    pomodoro.init()
+    $.get('/gettask', (data) => {
+      let arr = JSON.parse(data)
+      let count = arr.tasks.length
+      console.log(count)
+      let i = 0
+      while (i<count) {
+        if (arr.tasks[i].done == 'true') $('#task-list').append(drawDoneTask(arr.tasks[i].id, arr.tasks[i].name))
+        else $('#task-list').append(drawNotDoneTask(arr.tasks[i].id, arr.tasks[i].name))
+        i++
+      }
+    })
+  }
+
+  function pomoClick () {
+    pomodoro.init()
+    pomodoro.startWork()
+  }
 </script>
 
 <script>
   function fixBtn (id) {
-    $.get('/task?id=' + id, (data, status) => {
-      let obj = JSON.parse(data);
+    $.get('/task?id=' + id, (data) => {
+      let obj = JSON.parse(data)
       $('#task_modal_name').val(obj.name)
       $('#task_id').val(obj.id)
       $('#myModal').modal()
     })
   }
 
+  function deleteTask (id) {
+    let obj = {'id': id}
+    $.ajax({
+      type: 'POST',
+      url: '/delete',
+      data: obj,
+      dataType: 'json',
+      success: function (result) {
+        if (result['result'] === 'success') {
+          $('#' + id).remove()
+        }
+      },
+    })
+  }
+
+  function doneTask (id) {
+    let obj = {'id': id}
+    $.ajax({
+      type: 'POST',
+      url: '/done',
+      data: obj,
+      dataType: 'json',
+      success: function (result) {
+        if (result['result'] === 'success') {
+          $('#'+id).replaceWith(drawDoneTask(id, result['name']))
+        }
+      },
+    })
+  }
+
+  function resetTask (id) {
+    console.log('reset')
+    let obj = {'id': id}
+    $.ajax({
+      type: 'POST',
+      url: '/reset',
+      data: obj,
+      dataType: 'json',
+      success: function (result) {
+        if (result['result'] === 'success') {
+          $('#'+id).replaceWith(drawNotDoneTask(id, result['name']))
+        }
+      },
+    })
+  }
+
+  $('#addTask').click(function () {
+    let name = $('#newtask').val()
+    if (name === '') alert('Vui lòng nhập công việc!')
+    else {
+      let obj = {'name': name}
+      $.ajax({
+        type: 'POST',
+        url: '/insert',
+        data: obj,
+        dataType: 'json',
+        success: function (result) {
+          if (result['result'] === 'success') {
+            console.log(result['id'])
+            $('#newtask').val('')
+            $('#task-list').append(drawNotDoneTask(result['id'], name))
+          }
+        },
+      })
+    }
+  })
+
   $('#SaveTask').click(function () {
     let id = parseInt($('#task_id').val())
     let name = $('#task_modal_name').val()
-    var obj = {"name": name, "id": id}
+    let obj = {'name': name, 'id': id}
     console.log(JSON.stringify(obj))
     $.ajax({
-      type: "POST",
-      url: "/changetask",
+      type: 'POST',
+      url: '/changetask',
       data: obj,
-      dataType: "json",
+      dataType: 'json',
       success: function (result) {
-        if (result['result'] == 'success') {
+        if (result['result'] === 'success') {
           console.log('success' + id)
           $('#content' + id).text(name)
           $('#myModal').modal('hide')
         }
       },
-    });
+    })
   })
+
+  function drawDoneTask (id, name) {
+    return '<div class="thumbnail  pad10 bg-blue" id="'+id+'">\n' +
+      '             <p>'+name+'</p>\n' +
+      '             <div class="text-right" id="btngrp'+id+'">\n' +
+      '                 <button class="btn glyphicon glyphicon-refresh" id="reset"\n' +
+      '                     onclick="resetTask('+id+')"></button>\n' +
+      '                 <button class="btn glyphicon glyphicon-trash" id="delete"\n' +
+      '                     onclick="deleteTask('+id+')"></button>\n' +
+      '             </div>\n' +
+      '         </div>'
+  }
+
+  function drawNotDoneTask (id, name) {
+    return '<div class="thumbnail  pad10" id="' + id + '">\n' +
+      '             <p id="content' + id + '">' + name + '</p>\n' +
+      '             <div class="text-right" id="btngrp' + id + '">\n' +
+      '                 <button class="btn glyphicon glyphicon-ok" id="done"\n' +
+      '                     onclick="doneTask(' + id + ')"></button>\n' +
+      '                 <button class="btn glyphicon glyphicon-time "  onclick="pomoClick()"></button>\n' +
+      '                 <button class="btn glyphicon glyphicon-pencil" id="fixBtn"\n' +
+      '                     onclick="fixBtn(' + id + ')"></button>\n' +
+      '                 <button class="btn glyphicon glyphicon-trash" id="delete"\n' +
+      '                     onclick="deleteTask(' + id + ')"></button>\n' +
+      '              </div>\n' +
+      '         </div>'
+  }
 </script>
