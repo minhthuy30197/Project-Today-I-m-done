@@ -1,28 +1,9 @@
-let Task = function(name, id) {
-  let _name = name;
-  let _id = id;
-  let done = false;
+var mongoose = require('mongoose');
 
-  this.getName = function () {
-    return _name;
-  }
+const taskSchema = mongoose.Schema({
+  name: {type: String, default: 'an awesome task'},
+  done: {type: Boolean, default: false},
+  due: {type: Date}
+})
 
-  this.getID = function () {
-    return _id;
-  }
-
-  this.getDone = function () {
-    return done;
-  }
-
-  this.setName = function (name) {
-    _name = name;
-  }
-
-  this.setDone = function (state) {
-    done = state;
-  }
-};
-
-module.exports = Task
-
+let Task = mongoose.model('Task', taskSchema)

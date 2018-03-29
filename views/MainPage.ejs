@@ -273,15 +273,15 @@
       this.fillerHeight = 0
     },
   }
+
   window.onload = function () {
     pomodoro.init()
     $.get('/gettask', (data) => {
       let arr = JSON.parse(data)
       let count = arr.tasks.length
-      console.log(count)
       let i = 0
       while (i<count) {
-        if (arr.tasks[i].done == 'true') $('#task-list').append(drawDoneTask(arr.tasks[i].id, arr.tasks[i].name))
+        if (arr.tasks[i].done == true) $('#task-list').append(drawDoneTask(arr.tasks[i].id, arr.tasks[i].name))
         else $('#task-list').append(drawNotDoneTask(arr.tasks[i].id, arr.tasks[i].name))
         i++
       }
@@ -335,7 +335,6 @@
   }
 
   function resetTask (id) {
-    console.log('reset')
     let obj = {'id': id}
     $.ajax({
       type: 'POST',
@@ -372,7 +371,7 @@
   })
 
   $('#SaveTask').click(function () {
-    let id = parseInt($('#task_id').val())
+    let id = $('#task_id').val()
     let name = $('#task_modal_name').val()
     let obj = {'name': name, 'id': id}
     console.log(JSON.stringify(obj))
@@ -383,7 +382,6 @@
       dataType: 'json',
       success: function (result) {
         if (result['result'] === 'success') {
-          console.log('success' + id)
           $('#content' + id).text(name)
           $('#myModal').modal('hide')
         }
@@ -396,25 +394,25 @@
       '             <p>'+name+'</p>\n' +
       '             <div class="text-right" id="btngrp'+id+'">\n' +
       '                 <button class="btn glyphicon glyphicon-refresh" id="reset"\n' +
-      '                     onclick="resetTask('+id+')"></button>\n' +
+      '                     onclick="resetTask(\''+id+'\')"></button>\n' +
       '                 <button class="btn glyphicon glyphicon-trash" id="delete"\n' +
-      '                     onclick="deleteTask('+id+')"></button>\n' +
+      '                     onclick="deleteTask(\''+id+'\')"></button>\n' +
       '             </div>\n' +
       '         </div>'
   }
 
   function drawNotDoneTask (id, name) {
-    return '<div class="thumbnail  pad10" id="' + id + '">\n' +
-      '             <p id="content' + id + '">' + name + '</p>\n' +
-      '             <div class="text-right" id="btngrp' + id + '">\n' +
-      '                 <button class="btn glyphicon glyphicon-ok" id="done"\n' +
-      '                     onclick="doneTask(' + id + ')"></button>\n' +
-      '                 <button class="btn glyphicon glyphicon-time "  onclick="pomoClick()"></button>\n' +
-      '                 <button class="btn glyphicon glyphicon-pencil" id="fixBtn"\n' +
-      '                     onclick="fixBtn(' + id + ')"></button>\n' +
-      '                 <button class="btn glyphicon glyphicon-trash" id="delete"\n' +
-      '                     onclick="deleteTask(' + id + ')"></button>\n' +
-      '              </div>\n' +
-      '         </div>'
+        return "<div class='thumbnail  pad10' id='"+id+"'>\n" +
+      "             <p id='content" + id + "'>" + name + "</p>\n" +
+      "             <div class='text-right' id='btngrp" + id + "'>\n" +
+      "                 <button class='btn glyphicon glyphicon-ok'\n" +
+      "                     onclick=\"doneTask(\'"+ id +"\')\"></button>\n" +
+      "                 <button class='btn glyphicon glyphicon-time '  onclick='pomoClick()'></button>\n" +
+      "                 <button class='btn glyphicon glyphicon-pencil'\n" +
+      "                     onclick=\"fixBtn(\'"+id+"\')\"></button>\n" +
+      "                 <button class='btn glyphicon glyphicon-trash'\n" +
+      "                     onclick=\"deleteTask(\'" + id + "\')\"></button>\n" +
+      "              </div>\n" +
+      "        </div>"
   }
 </script>
