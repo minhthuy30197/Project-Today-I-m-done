@@ -3,59 +3,172 @@
 }
 
 body {
-    background-image: url("../images/bg1.jpg");
+    background-image: url("../images/bgmt.jpg");
     color: black;
-    background-position: center;
+    background-position: center bottom;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-#slogan {
-    font-style: inherit;
-    font-size: 20px;
-    font-family: sans-serif;
+.listtask {
+    padding-right: 20px;
+    min-height: 430px;
+    border-right: 1px solid rgba(0, 81, 191, 0.59);
+}
+
+.title {
+    font-weight: bold;
+    color: rgba(0, 81, 191, 0.59);
+}
+
+.addTask-input {
+    border: none !important;
+    border-radius: 0 !important;
+    width: 90%;
+}
+
+input.largerCheckbox {
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: inset 0 0 0px 9999px white;
+}
+
+input {
+    background: transparent;
 }
 
 label {
-    font-size: 20px;
+    font-size: 15px;
+    font-weight: normal;
 }
 
-hr {
-    display: block;
+.contenttask {
+    font-size: 15px;
+
+}
+
+.settings{
+    margin-top: 20px;
+}
+
+.settings p,span{
+    text-align: center;
+    font-size: 18px;
+    font-weight: lighter;
+}
+
+.settings button{
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    border: none;
+    outline: none;
+    background: none;font-size: 18px;
+}
+
+.settings button:hover{
+    color: rgba(0, 81, 191, 0.59);
+}
+
+.clock{
+    border-radius: 50%;
+    border: solid 2px rgba(0, 81, 191, 0.59);
+    width: 300px;
+    height: 300px;
     margin-left: auto;
     margin-right: auto;
-    border-width: 1px;
-    width: 60%;
-}
-
-.progress {
-    width: 82%;
-    margin: auto;
-}
-
-.gi-2x {
-    font-size: 2em;
-}
-
-.text30 {
-    font-size: 30px;
-}
-
-.text20 {
-    font-size: 20px;
-}
-
-.time {
-    top: 50%;
-    position: absolute;
     text-align: center;
-    width: 100%;
-    font-size: 8vw;
-    left: 0;
 }
 
-.clock {
-    position: relative;
+.clock p{
+    font-size: 40px;
+    margin-top: 30px;
+}
+
+.break-text{
+    margin-top: 10px !important;
+    visibility: hidden;
+    font-size: 25px;
+}
+
+.newton-cradle{
+    width: 110px;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.controls button{
+    margin-top: 20px;
+    width: 80px;
+    height: 30px;
+    border: 1px solid rgba(0, 81, 191, 0.59);
+    outline: none;
+    background: none;
+    border-radius: 5px;
+}
+
+.controls button:hover{
+    background-color: rgba(0, 81, 191, 0.59);
+}
+
+.cord{
+    padding-top:80px;
+    width:15px;
+    transform: rotate(0deg);
+    transform-origin:50% 50%;
+    float:left;
 }
 
 
+.ball{
+    background:rgba(0, 81, 191, 0.59);
+    width:15px;
+    height:15px;
+    float:left;
+    border-radius:50%;
+}
+
+.leftMove{
+    animation: leftBall .5s ease-in-out 0s infinite alternate;
+}
+.rightMove{
+    animation: rightBall .5s ease-in-out 0s infinite alternate;
+}
+
+
+@keyframes leftBall
+{
+    0% {
+        transform: rotate(0deg) translateY(0px);
+    }
+    /*this pauses the ball at the begining*/
+    50% {
+        transform: rotate(0deg) translateY(0px);
+    }
+    100% {
+        transform: rotate(50deg) translateY(-20px);
+    }
+
+}
+
+@keyframes rightBall
+{
+    0% {
+        transform: rotate(-50deg) translateY(-20px);
+    }
+    /*this pauses the ball at the begining*/
+    50% {
+        transform: rotate(0deg) translateY(0px);
+    }
+    100% {
+        transform: rotate(0deg) translateY(0px)
+        translateX(0px);
+    }
+
+}

@@ -33,10 +33,12 @@ app.post('/delete', function (req, res) {
     let tasks = JSON.parse(req.cookies.tasks)
     let pos = 0
     while (pos < tasks.length) {
-      if (tasks[pos].id === id) break
+      if (tasks[pos].id == id) break
       pos++
     }
-    tasks.splice(pos,1)
+    console.log(tasks[pos].id)
+    tasks.splice(pos, 1)
+    console.log(tasks)
     res.clearCookie('tasks')
     res.cookie('tasks', JSON.stringify(tasks), { maxAge: calTimeExpired(), httpOnly: true })
     res.status(200).send({result: 'success'})
@@ -63,7 +65,7 @@ app.post('/done', function (req, res) {
     tasks[pos].done = true
     res.clearCookie('tasks')
     res.cookie('tasks', JSON.stringify(tasks),{ maxAge: calTimeExpired(), httpOnly: true })
-    res.status(200).send({result: 'success'})
+    res.status(200).send({result: 'success', name: tasks[pos].name})
   }
   else {
     let myquery = { _id: obj['id'] }
@@ -96,7 +98,7 @@ app.post('/reset', function (req, res) {
     tasks[pos].done = false
     res.clearCookie('tasks')
     res.cookie('tasks', JSON.stringify(tasks), { maxAge: calTimeExpired(), httpOnly: true })
-    res.status(200).send({result: 'success'})
+    res.status(200).send({result: 'success', name: tasks[pos].name})
   }
   else {
     let myquery = { _id: obj['id'] }
@@ -171,8 +173,13 @@ app.post('/changetask', function (req, res) {
 app.get('/task', function (req, res) {
   let id = req.param('id')
   if (login == false) {
-    let tmp = JSON.parse(req.cookies.tasks)
-    let obj = {'name': tmp[id].name, 'id': id}
+    let tasks = JSON.parse(req.cookies.tasks)
+    let pos = 0
+    while (pos < tasks.length) {
+      if (tasks[pos].id == id) break
+      pos++
+    }
+    let obj = {'name':tasks[pos].name, 'id': id}
     res.status(200).send(JSON.stringify(obj))
   }
   else {
