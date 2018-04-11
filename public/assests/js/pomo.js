@@ -1,14 +1,18 @@
 let timer = new Timer(25 * 60 * 1000);
 $(document).ready(function() {
-  $("#start").on("click", function() {
-    startTimer(timer);
-  });
-
-  $("#stop").on("click", function() {
-    timer.stop();
+  $("#startstop").on("click", function() {
+    if ($("#startstop").text() == "Start") {
+      startTimer(timer);
+      $("#startstop").text("Stop");
+    }
+    else {
+      timer.stop();
+      $("#startstop").text("Start");
+    }
   });
 
   $("#reset").on("click", function() {
+    $("#startstop").text("Start");
     timer.reset();
   });
 

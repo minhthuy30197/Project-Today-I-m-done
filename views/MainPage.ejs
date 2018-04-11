@@ -17,6 +17,7 @@
             border-top: 0 none;
             border-right: 0 none;
             border-left: 0 none;
+            border-color: rgba(0, 81, 191, 0.59);
         }
 
         .list-group-item {
@@ -26,7 +27,6 @@
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation" style="opacity:0.8 ">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -34,21 +34,20 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-check gi-2x"></span> <span class="text30">Today I'm done</span></a>
+        <a class="navbar-brand" href="">
+            <span class="glyphicon glyphicon-check" style="font-size: 25px;"></span>
+            <span class="logo">Today I'm done</span>
+        </a>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#" data-toggle="modal" data-target="#modalSettings">
-                    <span class="glyphicon glyphicon-cog gi-2x"></span></a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="text20"></span><b
                             class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#" data-toggle="modal" data-target="#modalProfile"><span
-                                    class="glyphicon glyphicon-pencil"></span> Change profile</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                    <li></li>
+                    <li></li>
                 </ul>
             </li>
         </ul>
@@ -61,11 +60,9 @@
         <div class="col-md-10 col-md-push-1 well">
             <div class="col-md-7">
                 <div class="listtask">
-                    <div class="title">
-                        <h3>Make my date</h3>
-                        <p>
-                            <script> document.write(new Date().toDateString()) </script>
-                        </p>
+                    <div class="slogan">
+                        <input type="text" id="slogan" class="slogan-input"
+                               placeholder="Today I will..." value="">
                     </div>
                     <ul class="list-group" id="task-list">
                         <li class="list-group-item borderless">
@@ -134,8 +131,7 @@
                         </div>
                     </div>
                     <div class="controls text-center">
-                        <button type="button" id="stop">Stop</button>
-                        <button type="button" id="start">Start</button>
+                        <button type="button" id="startstop">Start</button>
                         <button type="button" id="reset">Reset</button>
                     </div>
 
@@ -148,93 +144,6 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="modalSettings" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title"><b>Options</b></h2>
-                </div>
-                <div class="modal-body">
-                    <h4><label for="ring">Select sound</label></h4><select class="form-control" id="ring">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                    </select>
-                    <h4>Select volume <span class="glyphicon glyphicon-volume-up"></span></h4>
-                    <div class="text-center">
-                        <label class="radio-inline">
-                            <input type="radio" name="optradio">25%
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="optradio">50%
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="optradio">75%
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="optradio">100%
-                        </label>
-                    </div>
-                </div>
-                <div class="modal-footer text-right">
-                    <button class="btn btn-success" id="SaveSettings" type="submit">Save</button>
-                    <button class="btn btn-default" id="ResetSettings" type="reset">Reset</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modalProfile" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title"><b>Profile</b></h2>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group">
-                        <span class="input-group-addon">Full Name</span>
-                        <input id="fullName" type="text" class="form-control" name="fullName"
-                               placeholder="Your full name">
-                    </div>
-                    <br>
-                    <div class="input-group">
-                        <span class="input-group-addon">Email</span>
-                        <input id="email" type="password" class="form-control" name="email"
-                               placeholder="Your email">
-                    </div>
-                    <br>
-                    <b>Change your password</b>
-                    <div class="input-group">
-                        <span class="input-group-addon">Your old password</span>
-                        <input id="oldPassword" type="password" class="form-control" name="oldPassword"
-                               placeholder="">
-                    </div>
-                    <br>
-                    <div class="input-group">
-                        <span class="input-group-addon">Your new password</span>
-                        <input id="newPassword" type="text" class="form-control" name="newPassword"
-                               placeholder="">
-                    </div>
-                    <br>
-                    <div class="input-group">
-                        <span class="input-group-addon">Retype new password</span>
-                        <input id="retypePassword" type="password" class="form-control" name="retypePassword"
-                               placeholder="">
-                    </div>
-                </div>
-                <div class="modal-footer text-right">
-                    <button class="btn btn-success" id="SaveProfile" type="submit">Save</button>
-                    <button class="btn btn-default" id="ResetProfile" type="reset">Reset</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -243,8 +152,8 @@
                     <h2 class="modal-title"><b>My task</b></h2>
                 </div>
                 <div class="modal-body">
+                    <label for="task_id"></label><input type="text" hidden value="" id="task_id">
                     <div class="input-group">
-                        <label for="task_id"></label><input type="text" hidden value="" id="task_id">
                         <span class="input-group-addon">My task</span>
                         <input id="task_modal_name" type="text" class="form-control" name="Task" placeholder="">
                     </div>
@@ -281,7 +190,14 @@
         if (pomo.isBreak == 'false') $("#break-text").css({"visibility": "hidden"})
         else $("#break-text").css({"visibility": "visible"})
         continueTimer(timer, pomo.elapsedtime, pomo.isBreak)
+        $("#startstop").text("Stop");
       }
+      else {
+        $("#startstop").text("Start");
+      }
+    })
+    $.get('/getslogan', (data) => {
+      $("#slogan").attr("placeholder", data['title']).blur();
     })
   }
 
@@ -366,6 +282,28 @@
     }
   })
 
+  let slogan = document.getElementById('slogan')
+  slogan.addEventListener('keyup', function (event) {
+    event.preventDefault()
+    if (event.keyCode === 13) {
+      let title = $('#slogan').val()
+      if (title != '') {
+        let obj = {'title': title}
+        $.ajax({
+          type: 'POST',
+          url: '/setslogan',
+          data: obj,
+          dataType: 'json',
+          success: function (result) {
+            if (result['result'] === 'success') {
+              $("#slogan-input").attr("placeholder", title).blur();
+            }
+          },
+        })
+      }
+    }
+  })
+
   $('#SaveTask').click(function () {
     let id = $('#task_id').val()
     let name = $('#task_modal_name').val()
@@ -392,7 +330,7 @@
       '                                <input name="checkdone" checked type="checkbox" value="" class="largerCheckbox col-xs-3" onclick="resetTask(\'' +
       id + '\')">\n' +
       '                                <div class="contenttask col-xs-9" onclick="showInfo(\'' + id + '\')">\n' +
-      '                                    <strike><p id=\'content' + id + '\'>' + name + '</p></strike>' +
+      '                                    <p class="donecontent" id=\'content' + id + '\'>' + name + '</p>' +
       '                                </div>\n' +
       '                            </div>\n' +
       '                        </div>\n' +

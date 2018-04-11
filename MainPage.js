@@ -242,6 +242,15 @@ app.get('/getpomo', function (req,res) {
     }
   }
 })
+app.get('/getslogan', function (req, res) {
+  if (req.cookies.slogan == undefined) res.status(200).send({title: 'Today I will...'})
+  else res.status(200).send({title: req.cookies.slogan})
+})
+app.post('/setslogan', function (req, res) {
+  res.clearCookie('slogan')
+  res.cookie('slogan', req.body.title, { maxAge: calTimeExpired(), httpOnly: true })
+  res.status(200).send({result: 'success'})
+})
 
 function calTimeExpired () {
   var d1 = new Date()
