@@ -1,10 +1,5 @@
+let timer = new Timer(25 * 60 * 1000);
 $(document).ready(function() {
-  var timer = new Timer(25 * 60 * 1000);
-
-  document.onkeypress = function(evt){
-    keyShortcuts(evt, timer);
-  }
-
   $("#start").on("click", function() {
     startTimer(timer);
   });
@@ -46,7 +41,18 @@ $(document).ready(function() {
     setNewTime($("#totTime"), 1, isBreak);
 
   });
+});
 
+$(window).on('beforeunload', function() {
+  let isBreak = ($("#break-text").css("visibility") == "visible")
+  timer.stop()
+  $.ajax({
+    type: 'POST',
+    url: '/close',
+    data: {'elapsedtime': timer.getElapsed(), 'isBreak': isBreak, 'breakTime': $("#breakTime").text(), 'totTime': $("#totTime").text()},
+    dataType: 'json',
+    async: false
+  });
 });
 
 function setNewTime(element, diff ,isBreak) {
@@ -102,11 +108,23 @@ function Timer(duration) {
     var timeLeft = this.duration - this.elapsed;
     this.displayTime();
   }
+  this.getElapsed = function() {
+    return this.elapsed;
+  }
 }
 
 Timer.prototype.start = function() {
   playNotification();
   this.paused = false;
+  this.previousTime = new Date().getTime();
+  this.keepCounting();
+  startAnimation();
+}
+
+Timer.prototype.start1 = function(elapsedtime) {
+  playNotification();
+  this.paused = false;
+  this.elapsed = parseInt(elapsedtime);
   this.previousTime = new Date().getTime();
   this.keepCounting();
   startAnimation();
@@ -189,3 +207,14 @@ function startTimer(timer){
   }
   timer.start();
 }
+
+function continueTimer (timer, elapsedtime, isBreak) {
+  var breaktime = (isBreak == "visible");
+  if (breaktime) {
+    timer.setDuration($("#breakTime").text() * 60 * 1000);
+  } else {
+    timer.setDuration($("#totTime").text() * 60 * 1000);
+  }
+  timer.start1(elapsedtime);
+}
+

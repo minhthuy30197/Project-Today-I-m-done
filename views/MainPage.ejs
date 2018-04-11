@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Today I'm done</title>
-    <link rel="stylesheet" href="assests/css/test.css">
+    <link rel="stylesheet" href="assests/css/style.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -271,6 +271,16 @@
         if (arr.tasks[i].done == true) $('#task-list').append(drawDoneTask(arr.tasks[i].id, arr.tasks[i].name))
         else $('#task-list').append(drawNotDoneTask(arr.tasks[i].id, arr.tasks[i].name))
         i++
+      }
+    })
+    $.get('/getpomo', (data) => {
+      let pomo = JSON.parse(data)
+      $("#breakTime").text(pomo.breakTime)
+      $("#totTime").text(pomo.totTime)
+      if (pomo.continue == 'yes') {
+        if (pomo.isBreak == 'false') $("#break-text").css({"visibility": "hidden"})
+        else $("#break-text").css({"visibility": "visible"})
+        continueTimer(timer, pomo.elapsedtime, pomo.isBreak)
       }
     })
   }
