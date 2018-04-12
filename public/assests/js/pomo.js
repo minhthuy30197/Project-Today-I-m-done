@@ -1,49 +1,41 @@
 let timer = new Timer(25 * 60 * 1000);
 $(document).ready(function() {
   $("#startstop").on("click", function() {
+    $(".settings").css({"color": "lightgrey"})
     if ($("#startstop").text() == "Start") {
       startTimer(timer);
-      $("#startstop").text("Stop");
+      $("#startstop").removeClass('btn-primary')
+      $("#startstop").text("Pause").addClass('btn-warning');
     }
     else {
       timer.stop();
-      $("#startstop").text("Start");
+      $("#startstop").removeClass('btn-warning')
+      $("#startstop").text("Start").addClass('btn-primary');
     }
   });
 
   $("#reset").on("click", function() {
-    $("#startstop").text("Start");
+    $(".settings").css({"color": "black"})
+    $("#startstop").removeClass('btn-warning')
+    $("#startstop").text("Start").addClass('btn-primary');
     timer.reset();
   });
 
   $("#breakSub").on("click", function() {
-    var isBreak = ($("#break-text").css("visibility") == "visible")
-    if (isBreak) {
-      timer.reset();
-    }
-    setNewTime($("#breakTime"), -1,isBreak);
+    if (timer.elapsed != 0) alert("You can only modify the Break Time when pomodoro doesn't work.\nPlease press RESET.")
+    else setNewTime($("#breakTime"), -1);
   });
   $("#breakAdd").on("click", function() {
-    var isBreak = ($("#break-text").css("visibility") == "visible")
-    if (isBreak) {
-      timer.reset();
-    }
-    setNewTime($("#breakTime"), 1,isBreak);
+    if (timer.elapsed != 0) alert("You can only modify the Break Time when pomodoro doesn't work.\nPlease press RESET.")
+    else setNewTime($("#breakTime"), 1);
   });
   $("#totSub").on("click", function() {
-    var isBreak = ($("#break-text").css("visibility") == "visible")
-    if (!isBreak) {
-      timer.reset();
-    }
-    setNewTime($("#totTime"), -1, isBreak);
+    if (timer.elapsed != 0) alert("You can only modify the Time when pomodoro doesn't work.\nPlease press RESET.")
+    else setNewTime($("#totTime"), -1);
   });
   $("#totAdd").on("click", function() {
-    var isBreak = ($("#break-text").css("visibility") == "visible")
-    if (!isBreak) {
-      timer.reset();
-    }
-    setNewTime($("#totTime"), 1, isBreak);
-
+    if (timer.elapsed != 0) alert("You can only modify the Time when pomodoro doesn't work.\nPlease press RESET.")
+    else setNewTime($("#totTime"), 1);
   });
 });
 
@@ -59,7 +51,7 @@ $(window).on('beforeunload', function() {
   });
 });
 
-function setNewTime(element, diff ,isBreak) {
+function setNewTime(element, diff) {
   var newTime = parseInt(element.text()) + diff;
   if (newTime < 1) {
     newTime = 1;
@@ -67,13 +59,6 @@ function setNewTime(element, diff ,isBreak) {
     newTime = 60;
   }
   element.text(newTime);
-
-  if (!(element.hasClass('break')) && !isBreak) {
-    $("#time-display").text(newTime + ":00");
-  }
-  if (element.hasClass('break') && isBreak){
-    $("#time-display").text(newTime + ":00");
-  }
 }
 
 function startAnimation() {

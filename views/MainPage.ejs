@@ -131,8 +131,8 @@
                         </div>
                     </div>
                     <div class="controls text-center">
-                        <button type="button" id="startstop">Start</button>
-                        <button type="button" id="reset">Reset</button>
+                        <button type="button" id="startstop" class="btn btn-primary">Start</button>
+                        <button type="button" id="reset" class="btn btn-danger">Reset</button>
                     </div>
 
                     <audio id="notify">
@@ -149,7 +149,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title"><b>My task</b></h2>
+                    <h2 class="modal-title"><b>Change task</b></h2>
                 </div>
                 <div class="modal-body">
                     <label for="task_id"></label><input type="text" hidden value="" id="task_id">
@@ -159,7 +159,6 @@
                     </div>
                 </div>
                 <div class="modal-footer text-right">
-                    <button class="btn btn-success" id="SaveTask">Save</button>
                     <button class="btn btn-basic" id="DeleteTask" onclick="deleteTask()">Delete</button>
                 </div>
             </div>
@@ -190,10 +189,11 @@
         if (pomo.isBreak == 'false') $("#break-text").css({"visibility": "hidden"})
         else $("#break-text").css({"visibility": "visible"})
         continueTimer(timer, pomo.elapsedtime, pomo.isBreak)
-        $("#startstop").text("Stop");
+        $("#startstop").text("Pause").addClass('btn-warning');
+        $(".settings").css({"color": "lightgrey"})
       }
       else {
-        $("#startstop").text("Start");
+        $("#startstop").text("Start").addClass('btn-primary');
       }
     })
     $.get('/getslogan', (data) => {
@@ -262,7 +262,7 @@
     event.preventDefault()
     if (event.keyCode === 13) {
       let name = $('#newtask').val()
-      if (name === '') alert('Vui lòng nhập công việc!')
+      if (name === '') alert('Please do not leave the content of task blank!')
       else {
         let obj = {'name': name}
         $.ajax({
@@ -304,23 +304,29 @@
     }
   })
 
-  $('#SaveTask').click(function () {
-    let id = $('#task_id').val()
-    let name = $('#task_modal_name').val()
-    let obj = {'name': name, 'id': id}
-    console.log(JSON.stringify(obj))
-    $.ajax({
-      type: 'POST',
-      url: '/changetask',
-      data: obj,
-      dataType: 'json',
-      success: function (result) {
-        if (result['result'] === 'success') {
-          $('#content' + id).text(name)
-          $('#myModal').modal('hide')
-        }
-      },
-    })
+  let task_modal_name = document.getElementById('task_modal_name')
+  task_modal_name.addEventListener('keyup', function (event) {
+    event.preventDefault()
+    if (event.keyCode === 13) {
+      let name = $('#task_modal_name').val()
+      let id = $('#task_id').val()
+      if (name === '') alert('Please do not leave the content of task blank!')
+      else {
+        let obj = {'name': name, 'id': id}
+        $.ajax({
+          type: 'POST',
+          url: '/changetask',
+          data: obj,
+          dataType: 'json',
+          success: function (result) {
+            if (result['result'] === 'success') {
+              $('#content' + id).text(name)
+              $('#myModal').modal('hide')
+            }
+          },
+        })
+      }
+    }
   })
 
   function drawDoneTask (id, name) {

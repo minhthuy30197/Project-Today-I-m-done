@@ -145,14 +145,9 @@ label {
     margin-top: 20px;
     width: 80px;
     height: 30px;
-    border: 1px solid #ef5d50;
     outline: none;
-    background: none;
     border-radius: 5px;
-}
-
-.controls button:hover{
-    background-color: #ef5d50;
+    color: white;
 }
 
 .cord{
