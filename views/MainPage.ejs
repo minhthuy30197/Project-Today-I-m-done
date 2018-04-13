@@ -58,8 +58,8 @@
 <br>
 <div class="container">
     <div class="row">
-        <div class="col-md-12 well">
-            <div class="col-md-7">
+        <div class="col-sm-12 well">
+            <div class="col-sm-7">
                 <div class="listtask">
                     <div class="slogan">
                         <input type="text" id="slogan" class="slogan-input"
@@ -75,7 +75,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-sm-5">
                 <div class="pomodoro">
                     <div class="settings">
                         <table width="100%">
@@ -150,7 +150,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title"><b>Change task</b></h2>
+                    <h4 class="modal-title"><b>Change task</b></h4>
                 </div>
                 <div class="modal-body">
                     <label for="task_id"></label><input type="text" hidden value="" id="task_id">
@@ -169,6 +169,25 @@
 </div>
 </body>
 </html>
-$(initialize())
+
 <script>
+  $(initialize())
+
+  $('#newtask').keypress(function (e) {
+    if (e.which == 13) {
+      addTask()
+    }
+  })
+
+  $('#slogan').keypress(function (e) {
+    if (e.which == 13) {
+      addSlogan()
+    }
+  })
+
+  $('#task_modal_name').keypress(function (e) {
+    if (e.which == 13) {
+      saveTask()
+    }
+  })
 </script>

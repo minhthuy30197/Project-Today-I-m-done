@@ -4,8 +4,10 @@ function initialize () {
     let count = arr.tasks.length
     let i = 0
     while (i < count) {
-      if (arr.tasks[i].done == true) $('#task-list').append(drawDoneTask(arr.tasks[i].id, arr.tasks[i].name))
-      else $('#task-list').append(drawNotDoneTask(arr.tasks[i].id, arr.tasks[i].name))
+      if (arr.tasks[i].done == true) $('#task-list').
+        append(drawDoneTask(arr.tasks[i].id, arr.tasks[i].name))
+      else $('#task-list').
+        append(drawNotDoneTask(arr.tasks[i].id, arr.tasks[i].name))
       i++
     }
   })
@@ -14,7 +16,8 @@ function initialize () {
     $('#breakTime').text(pomo.breakTime)
     $('#totTime').text(pomo.totTime)
     if (pomo.continue == 'yes') {
-      if (pomo.isBreak == 'false') $('#break-text').css({'visibility': 'hidden'})
+      if (pomo.isBreak == 'false') $('#break-text').
+        css({'visibility': 'hidden'})
       else $('#break-text').css({'visibility': 'visible'})
       continueTimer(timer, pomo.elapsedtime, pomo.isBreak)
       $('#startstop').text('Pause').addClass('btn-warning')
@@ -85,102 +88,83 @@ function resetTask (id) {
   })
 }
 
-let newtask = document.getElementById('newtask')
-newtask.addEventListener('keyup', function (event) {
-  event.preventDefault()
-  if (event.keyCode === 13) {
-    let name = $('#newtask').val()
-    if (name === '') alert('Please do not leave the content of task blank!')
-    else {
-      let obj = {'name': name}
-      $.ajax({
-        type: 'POST',
-        url: '/insert',
-        data: obj,
-        dataType: 'json',
-        success: function (result) {
-          if (result['result'] === 'success') {
-            console.log(result['id'])
-            $('#newtask').val('')
-            $('#task-list').append(drawNotDoneTask(result['id'], name))
-          }
-        },
-      })
-    }
+function addTask () {
+  let name = $('#newtask').val()
+  if (name === '') alert('Please do not leave the content of task blank!')
+  else {
+    let obj = {'name': name}
+    $.ajax({
+      type: 'POST',
+      url: '/insert',
+      data: obj,
+      dataType: 'json',
+      success: function (result) {
+        if (result['result'] === 'success') {
+          console.log(result['id'])
+          $('#newtask').val('')
+          $('#task-list').append(drawNotDoneTask(result['id'], name))
+        }
+      },
+    })
   }
-})
+}
 
-let slogan = document.getElementById('slogan')
-slogan.addEventListener('keyup', function (event) {
-  event.preventDefault()
-  if (event.keyCode === 13) {
-    let title = $('#slogan').val()
-    if (title != '') {
-      let obj = {'title': title}
-      $.ajax({
-        type: 'POST',
-        url: '/setslogan',
-        data: obj,
-        dataType: 'json',
-        success: function (result) {
-          if (result['result'] === 'success') {
-            $('#slogan-input').attr('placeholder', title).blur()
-          }
-        },
-      })
-    }
+function addSlogan (event) {
+  let title = $('#slogan').val()
+  if (title != '') {
+    let obj = {'title': title}
+    $.ajax({
+      type: 'POST',
+      url: '/setslogan',
+      data: obj,
+      dataType: 'json',
+      success: function (result) {
+        if (result['result'] === 'success') {
+          $('#slogan-input').attr('placeholder', title).blur()
+        }
+      },
+    })
   }
-})
+}
 
-let task_modal_name = document.getElementById('task_modal_name')
-task_modal_name.addEventListener('keyup', function (event) {
-  event.preventDefault()
-  if (event.keyCode === 13) {
-    let name = $('#task_modal_name').val()
-    let id = $('#task_id').val()
-    if (name === '') alert('Please do not leave the content of task blank!')
-    else {
-      let obj = {'name': name, 'id': id}
-      $.ajax({
-        type: 'POST',
-        url: '/changetask',
-        data: obj,
-        dataType: 'json',
-        success: function (result) {
-          if (result['result'] === 'success') {
-            $('#content' + id).text(name)
-            $('#myModal').modal('hide')
-          }
-        },
-      })
-    }
+function saveTask (event) {
+  let name = $('#task_modal_name').val()
+  let id = $('#task_id').val()
+  if (name === '') alert('Please do not leave the content of task blank!')
+  else {
+    let obj = {'name': name, 'id': id}
+    $.ajax({
+      type: 'POST',
+      url: '/changetask',
+      data: obj,
+      dataType: 'json',
+      success: function (result) {
+        if (result['result'] === 'success') {
+          $('#content' + id).text(name)
+          $('#myModal').modal('hide')
+        }
+      },
+    })
   }
-})
+}
 
 function drawDoneTask (id, name) {
   return '<li class="list-group-item borderless" id=\'' + id + '\'>\n' +
-    '                        <div class="container-fluid">\n' +
-    '                            <div class="row">\n' +
-    '                                <input name="checkdone" checked type="checkbox" value="" class="largerCheckbox col-xs-3" onclick="resetTask(\'' +
+    '       <input name="checkdone" checked type="checkbox" value="" class="largerCheckbox col-xs-3" onclick="resetTask(\'' +
     id + '\')">\n' +
-    '                                <div class="contenttask col-xs-9" onclick="showInfo(\'' + id + '\')">\n' +
-    '                                    <p class="donecontent" id=\'content' + id + '\'>' + name + '</p>' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '                    </li>'
+    '         <div class="contenttask" onclick="showInfo(\'' + id + '\')">\n' +
+    '           <p class="donecontent" id=\'content' + id + '\'>' + name +'</p>' +
+    '         </div>\n' +
+    '     </li>'
 }
 
 function drawNotDoneTask (id, name) {
   return '<li class="list-group-item borderless" id=\'' + id + '\'>\n' +
-    '                        <div class="container-fluid">\n' +
-    '                            <div class="row">\n' +
-    '                                <input name="checkdone" type="checkbox" value="" class="largerCheckbox col-xs-3" onclick="doneTask(\'' +
+    '       <input name="checkdone" type="checkbox" value="" class="largerCheckbox" onclick="doneTask(\'' +
     id + '\')">\n' +
-    '                                <div class="contenttask col-xs-9" onclick="showInfo(\'' + id + '\')">\n' +
-    '                                    <p id=\'content' + id + '\'>' + name + '</p>' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '                    </li>'
+    '         <div class="contenttask" onclick="showInfo(\'' +
+    id + '\')">\n' +
+    '           <p id=\'content' + id + '\'>' + name + '</p>' +
+    '         </div>\n' +
+    '     </li>'
 }

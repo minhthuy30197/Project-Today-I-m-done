@@ -5,9 +5,14 @@
 body {
     background-image: url("../images/forest.jpg");
     color: black;
-    background-repeat: no-repeat;
     background-attachment: fixed;
     font-family: Monaco;
+    background-repeat:no-repeat;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+    background-position:center;
 }
 
 .navbar-brand {
@@ -20,11 +25,53 @@ body {
     font-size: 25px;
     font-family: "Lucida Handwriting";
 }
-.listtask {
-    padding-right: 20px;
-    min-height: 430px;
-    border-right: 1px solid grey;
+
+@media only screen and (max-width: 570px) {
+    .logo {
+        font-size: 20px;
+    }
+
+    .navbar-brand {
+        transform: translateX(-50%);
+        left: 50%;
+        position: absolute;
+    }
 }
+
+@media only screen and (max-width: 480px) {
+    .logo {
+        font-size: 18px;
+    }
+
+    .navbar-brand {
+        transform: translateX(-40%);
+        left: 40%;
+        position: absolute;
+    }
+}
+
+.listtask {
+    min-height: 430px;
+    padding-right: 15px;
+}
+
+@media only screen and (min-width: 768px) {
+    .col-sm-7 {
+        border-right: 1px solid grey;
+    }
+}
+
+@media only screen and (max-width: 759px) {
+    .col-sm-12 {
+        margin: 0px 20px;
+    }
+    .listtask {
+        min-height: 0px;
+        padding-right: 5px;
+        padding-bottom: 10px;
+    }
+}
+
 .slogan {
     font-size: large;
     font-weight: bold;
@@ -55,7 +102,7 @@ body {
 .addTask-input {
     border: none !important;
     border-radius: 0 !important;
-    width: 90%;
+    width: 95%;
 }
 
 input.largerCheckbox {
@@ -81,9 +128,14 @@ label {
     font-weight: normal;
 }
 
+input[type=checkbox] {
+    float: left;
+}
+
 .contenttask {
     font-size: 15px;
-
+    margin-left: 25px;
+    display: block;
 }
 .donecontent {
     color: lightgrey;
@@ -130,7 +182,7 @@ label {
 .break-text{
     margin-top: 10px !important;
     visibility: hidden;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .newton-cradle{
@@ -158,7 +210,6 @@ label {
     float:left;
 }
 
-
 .ball{
     background-color: #ef5d50;
     width:15px;
@@ -167,13 +218,76 @@ label {
     border-radius:50%;
 }
 
+@media only screen and (max-width: 1000px) {
+    .clock{
+        width: 250px;
+        height: 250px;
+    }
+
+    .cord{
+        padding-top:45px;
+        width:15px;
+        transform: rotate(0deg);
+        transform-origin:50% 50%;
+        float:left;
+    }
+
+    .break-text{
+        margin-top: 10px !important;
+        visibility: hidden;
+        font-size: 20px;
+    }
+
+    .settings p,span{
+        text-align: center;
+        font-size: 16px;
+        font-weight: lighter;
+    }
+}
+
+@media only screen and (max-width: 370px) {
+    .logo {
+        font-size: 16px;
+    }
+
+    .navbar-brand {
+        transform: translateX(0%);
+        left: 0%;
+        position: absolute;
+    }
+
+    .clock{
+        width: 200px;
+        height: 200px;
+    }
+
+    .cord{
+        padding-top: 0px;
+        width:15px;
+        transform: rotate(0deg);
+        transform-origin:50% 50%;
+        float:left;
+    }
+
+    .break-text{
+        margin-top: 10px !important;
+        visibility: hidden;
+        font-size: 18px;
+    }
+
+    .settings p,span{
+        text-align: center;
+        font-size: 14px;
+        font-weight: lighter;
+    }
+}
+
 .leftMove{
     animation: leftBall .5s ease-in-out 0s infinite alternate;
 }
 .rightMove{
     animation: rightBall .5s ease-in-out 0s infinite alternate;
 }
-
 
 @keyframes leftBall
 {
