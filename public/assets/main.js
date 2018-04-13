@@ -13,18 +13,47 @@ function initialize () {
   })
   $.get('/getpomo', (data) => {
     let pomo = JSON.parse(data)
+    console.log(pomo)
     $('#breakTime').text(pomo.breakTime)
     $('#totTime').text(pomo.totTime)
-    if (pomo.continue == 'yes') {
-      if (pomo.isBreak == 'false') $('#break-text').
-        css({'visibility': 'hidden'})
-      else $('#break-text').css({'visibility': 'visible'})
-      continueTimer(timer, pomo.elapsedtime, pomo.isBreak)
-      $('#startstop').text('Pause').addClass('btn-warning')
-      $('.settings').css({'color': 'lightgrey'})
+    if (pomo.isBreak == 'false') $('#break-text').css({'visibility': 'hidden'})
+    else $('#break-text').css({'visibility': 'visible'})
+    if (isEditTable()) $('.settings').css({'color': 'black'})
+    else $('.settings').css({'color': 'lightgrey'})
+    if (pomo.isPause == true) {
+      if (pomo.isBreak == 'false') continueStop(timer, pomo.elapsedtime,
+        pomo.totTime)
+      else continueStop(timer, pomo.elapsedtime, pomo.breakTime)
+      $('#startstop').text('Start').addClass('btn-primary')
     }
     else {
-      $('#startstop').text('Start').addClass('btn-primary')
+      let now = new Date()
+      let lefttime = parseInt(pomo.elapsedtime)
+      let tot = parseInt(pomo.totTime) * 60 * 1000
+      let bre = parseInt(pomo.breakTime) * 60 * 1000
+      let time = now - parseInt(pomo.nowTime)
+      let status = pomo.isBreak
+      console.log(time)
+      lefttime += time
+      while (lefttime > 0) {
+        if (status == false) {
+          if (lefttime > tot) {
+            lefttime -= tot
+            status = true
+          }
+          else break
+        }
+        else {
+          if (lefttime > bre) {
+            lefttime -= bre
+            status == false
+          }
+          else break
+        }
+      }
+      console.log(status + '  ' + lefttime)
+      continueTimer(timer, lefttime, status)
+      $('#startstop').text('Pause').addClass('btn-warning')
     }
   })
   $.get('/getslogan', (data) => {
@@ -153,7 +182,8 @@ function drawDoneTask (id, name) {
     '       <input name="checkdone" checked type="checkbox" value="" class="largerCheckbox col-xs-3" onclick="resetTask(\'' +
     id + '\')">\n' +
     '         <div class="contenttask" onclick="showInfo(\'' + id + '\')">\n' +
-    '           <p class="donecontent" id=\'content' + id + '\'>' + name +'</p>' +
+    '           <p class="donecontent" id=\'content' + id + '\'>' + name +
+    '</p>' +
     '         </div>\n' +
     '     </li>'
 }

@@ -220,7 +220,7 @@ app.get('/gettask', function (req, res) {
 })
 
 app.post('/close', function (req, res) {
-  let pomo = {elapsedtime: req.body['elapsedtime'], isBreak: req.body['isBreak'], breakTime: req.body['breakTime'], totTime: req.body['totTime']}
+  let pomo = {elapsedtime: req.body['elapsedtime'], isBreak: req.body['isBreak'], breakTime: req.body['breakTime'], totTime: req.body['totTime'], isPause: req.body['isPause'], nowTime: req.body['nowTime']}
   console.log(pomo)
   res.clearCookie('pomodoro')
   res.cookie('pomodoro', JSON.stringify(pomo), { maxAge: calTimeExpired(), httpOnly: true })
@@ -229,16 +229,16 @@ app.post('/close', function (req, res) {
 
 app.get('/getpomo', function (req,res) {
   if (req.cookies.pomodoro == undefined) {
-    res.status(200).send(JSON.stringify({elapsedtime: 0, isBreak: false, breakTime: 5, totTime: 25, continue: 'no'}))
+    res.status(200).send(JSON.stringify({elapsedtime: 0, isBreak: 'false', breakTime: 1, totTime: 2, isPause: true}))
   }
   else {
     let pomo = JSON.parse(req.cookies.pomodoro)
     res.clearCookie('pomodoro')
-    if (pomo.elapsedtime == '0') {
-      res.status(200).send(JSON.stringify({'elapsedtime': 0, 'isBreak': pomo.isBreak, 'breakTime': pomo.breakTime, 'totTime': pomo.totTime, 'continue': 'no'}))
+    if (pomo.isPause == 'true')  {
+      res.status(200).send(JSON.stringify({'elapsedtime': pomo.elapsedtime, 'isBreak': pomo.isBreak, 'breakTime': pomo.breakTime, 'totTime': pomo.totTime, 'isPause': true}))
     }
     else {
-      res.status(200).send(JSON.stringify({elapsedtime: pomo.elapsedtime, isBreak: pomo.isBreak, breakTime: pomo.breakTime, totTime: pomo.totTime, continue: 'yes'}))
+      res.status(200).send(JSON.stringify({'elapsedtime': pomo.elapsedtime, 'isBreak': pomo.isBreak, 'breakTime': pomo.breakTime, 'totTime': pomo.totTime, 'isPause': false, 'nowTime': pomo.nowTime}))
     }
   }
 })

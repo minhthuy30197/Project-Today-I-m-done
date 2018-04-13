@@ -41,11 +41,13 @@ $(document).ready(function() {
 
 $(window).on('beforeunload', function() {
   let isBreak = ($("#break-text").css("visibility") == "visible")
+  let isPause = true
+  if (timer.paused == false) isPause = false
   timer.stop()
   $.ajax({
     type: 'POST',
     url: '/close',
-    data: {'elapsedtime': timer.getElapsed(), 'isBreak': isBreak, 'breakTime': $("#breakTime").text(), 'totTime': $("#totTime").text()},
+    data: {'elapsedtime': timer.getElapsed(), 'isBreak': isBreak, 'breakTime': $("#breakTime").text(), 'totTime': $("#totTime").text(), 'isPause': isPause, 'nowTime': (new Date()).getTime()},
     dataType: 'json',
     async: false
   });
@@ -117,6 +119,11 @@ Timer.prototype.start1 = function(elapsedtime) {
   this.previousTime = new Date().getTime();
   this.keepCounting();
   startAnimation();
+}
+
+Timer.prototype.setStopTime = function(elapsedtime) {
+  this.elapsed = parseInt(elapsedtime);
+  this.onTimeUpdate();
 }
 
 Timer.prototype.displayTime = function() {
@@ -198,12 +205,22 @@ function startTimer(timer){
 }
 
 function continueTimer (timer, elapsedtime, isBreak) {
-  var breaktime = (isBreak == "visible");
-  if (breaktime) {
+  if (isBreak == 'true') {
+    $('#break-text').css({'visibility': 'visible'})
     timer.setDuration($("#breakTime").text() * 60 * 1000);
   } else {
+    $('#break-text').css({'visibility': 'hidden'})
     timer.setDuration($("#totTime").text() * 60 * 1000);
   }
   timer.start1(elapsedtime);
 }
 
+function continueStop (timer, elapsedtime, duration) {
+  timer.setDuration(parseInt(duration) * 60 * 1000)
+  timer.setStopTime(elapsedtime);
+}
+
+function isEditTable () {
+  if (timer.getElapsed() == 0) return true
+  else return false
+}
