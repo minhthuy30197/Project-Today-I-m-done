@@ -33,20 +33,19 @@ function initialize () {
       let bre = parseInt(pomo.breakTime) * 60 * 1000
       let time = now - parseInt(pomo.nowTime)
       let status = pomo.isBreak
-      console.log(time)
       lefttime += time
       while (lefttime > 0) {
-        if (status == false) {
+        if (status == 'false') {
           if (lefttime > tot) {
             lefttime -= tot
-            status = true
+            status = 'true'
           }
           else break
         }
         else {
           if (lefttime > bre) {
             lefttime -= bre
-            status == false
+            status = 'false'
           }
           else break
         }
