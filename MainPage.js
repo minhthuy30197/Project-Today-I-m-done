@@ -229,7 +229,7 @@ app.post('/close', function (req, res) {
 
 app.get('/getpomo', function (req,res) {
   if (req.cookies.pomodoro == undefined) {
-    res.status(200).send(JSON.stringify({elapsedtime: 0, isBreak: 'false', breakTime: 1, totTime: 2, isPause: true}))
+    res.status(200).send(JSON.stringify({elapsedtime: 0, isBreak: 'false', breakTime: 5, totTime: 25, isPause: true}))
   }
   else {
     let pomo = JSON.parse(req.cookies.pomodoro)
